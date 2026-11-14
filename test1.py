@@ -50,6 +50,32 @@ usman = Player("P002", "Usman Khan", "Wicket Keeper", "Hyderabad Kingsmen", 10.5
 irfan = Player("P004", "Irfan Khan", "Batter", "Hyderabad Kingsmen", 6.5)
 imad = Player ("P028", "Imad Wasim", "All Rounder", "Islamabad United", 9.5)
 shadab = Player("P029", "Shadab Khan", "All Rounder", "Islamabad United", 9.5)
+gleeson = Player("P032", "R J Gleeson", "Bowler", "Islamabad United", 7.5)
+amir = Player("P137", "Mohammad Amir", "Bowler", "Rawalpindi", 8.7)
+nawaz = Player("P106", "Hassan Nawaz", "Batter", "Quetta Gladiator", 9.5)
+mg = Player("P107", "MG Bracewell", "All Rounder", "Peshawer Zalmi", 8.0)
+shan= Player("P076", "Shan Masood", "Batter", "Karachi Kings", 6.0)
+hasnain = Player("P031", "Mohammad Hasnain", "Bowler", "Islamabad United", 6.0)
 
-for player in [babar, usman, irfan, imad, shadab]:
+team = FantacyTeam("Kings XI", "Mahwish")
+team.add_player(babar)
+team.add_player(usman)
+team.add_player(irfan)
+team.add_player(imad)
+team.add_player(shadab)
+team.add_player(gleeson)
+team.add_player(amir)
+team.add_player(nawaz)
+team.add_player(mg)
+team.add_player(shan)
+team.add_player(hasnain)
+
+team.set_captain(shadab, usman)
+
+print(team)
+print(f"Role  : {team.count_by_role()}")
+print(f"captain : {team.captain}")
+print(f"vice-captain : {team.vice_captain}")
+
+for player in team.players:
     print(player)
