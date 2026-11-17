@@ -7,17 +7,31 @@ class Player:
         self.franchise = franchise
         self.credits = credits
 
+    @classmethod
+    #"""decorator to create a Player object from a row of data"""
+    def from_row(cls, row):
+        return cls(
+            row["player_id"],
+            row["name"],
+            row["role"],
+            row["franchise"],
+            row["credits"]
+        )
+
     def __str__(self):
         return f"{self.name} ({self.franchise}, {self.role}, {self.credits} cr)"
 
 
 class FantacyTeam:
+    """A fantacy XI picked by one person"""
     def __init__(self, team_name, owner):
         self.team_name = team_name
         self.owner = owner
         self.players = []
         self.captain = None
         self.vice_captain = None
+
+
 
     def add_player(self, player):
         self.players.append(player)
@@ -28,8 +42,8 @@ class FantacyTeam:
             total += player.credits 
         return total
 
-    def count_by_role(self, role):
-        counts = {'WK': 0, 'BAT': 0, 'AR': 0, 'BOWL': 0} 
+    def count_by_role(self):
+        counts = {'Wicket Keeper': 0, 'Batter': 0, 'All Rounder': 0, 'Bowler': 0} 
         for player in self.players:
             counts[player.role] = counts[player.role] + 1
         return counts
@@ -41,7 +55,7 @@ class FantacyTeam:
     def __str__(self):
         size = len(self.players)
         cost = self.total_credits()
-        return f"{self.team_name} 
+        return f"{self.team_name} (owner:{self.owner},{size} players, {cost} cr)"
 
 
 
@@ -73,9 +87,9 @@ team.add_player(hasnain)
 team.set_captain(shadab, usman)
 
 print(team)
-print(f"Role  : {team.count_by_role()}")
-print(f"captain : {team.captain}")
-print(f"vice-captain : {team.vice_captain}")
+print(f"Roles  : {team.count_by_role()}")
+print(f"captain :   {team.captain}")
+print(f"vice-captain :  {team.vice_captain}")
 
 for player in team.players:
     print(player)
