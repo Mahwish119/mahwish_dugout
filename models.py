@@ -52,6 +52,14 @@ class FantacyTeam:
         self.captain = captain
         self.vice_captain = vice_captain
 
+    def count_by_franchise(self):
+        """return a dictionary of franchise -> number of players from that franchise"""
+        counts = {}
+        for player in self.players:
+            #get(key,0)gives 0 the first time we see a franchise
+            counts[player.franchise] = counts.get(player.franchise, 0) +1
+            return counts
+
     def __str__(self):
         size = len(self.players)
         cost = self.total_credits()
