@@ -1,3 +1,14 @@
+# dugout models.py, at the top 
+from mahwish_dugout.rules import (
+    check_player_count,
+    check_budget,
+    check_franchise_limit,
+    check_roles,
+    check_captains,
+    )
+
+
+
 class Player:
     #constructor 
     def __init__(self, player_id, name, role, franchise, credits):
@@ -31,7 +42,16 @@ class FantacyTeam:
         self.captain = None
         self.vice_captain = None
 
-
+#inshide class fantacy team 
+    def check_rules(self):
+        """return a list of rules violation. An empty list means the team is leagal."""
+        errors = []
+        errors.extend(check_player_count(self))
+        errors.extend(check_budget(self))
+        errors.extend(check_franchise_limit(self))
+        errors.extend(check_roles(self))
+        errors.extend(check_captains(self))
+        return errors
 
     def add_player(self, player):
         self.players.append(player)
@@ -66,6 +86,29 @@ class FantacyTeam:
         return f"{self.team_name} (owner:{self.owner},{size} players, {cost} cr)"
 
 
+class League:
+    """A collection of Fantacy teams, with methods to look up and rank them """
+    def __init__(self, name ):
+        self.name = name 
+        self.teams = {} # owner name -> FantacyTeam 
+
+    def add_team (self, team ):
+        self.teams[team.owner] = team
+
+    def find_team (self , owner ):
+        """return the FantacyTeam for the given owner, or None if not found ."""
+        return self.teams.get(owner) 
+
+    def leagal_team (self):
+        """Return a list of the teams that break no rules."""
+        return[team for team in self.teams.values() if not team.check_rules()]
+
+    def rank_teams(self):
+        """return a list of teams sorted by total credits (lowest first)"""
+        #self.team is dict, so sort its values (the team), not its key 
+        return sorted(self.teams.values(), key=lambda team: team.total_credits())
+
+        
 
 babar = Player("P089", "Babar Azam", "Batter", "Peshawer Zalmi", 10.5)
 usman = Player("P002", "Usman Khan", "Wicket Keeper", "Hyderabad Kingsmen", 10.5 )
