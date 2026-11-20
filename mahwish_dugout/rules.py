@@ -4,20 +4,20 @@ MAX_FROM_ONE_FRANCHISE = 7
 
 # ROLE-> (Minimum, maximum )numbers of players allowed in a team
 ROLE_LIMITS = {
-    "Wicket Keeper": (1, 4),
-    "Batter": (3, 6),
-    "All Rounder": (1, 4),
-    "Bowler": (3, 6)
+    "WK": (1, 2),
+    "BAT": (3, 5),
+    "AR": (1, 3),
+    "BOWL": (3, 5)
 }
 
-def check_player_count(team):
+def check_players_count(team):
     """ The team must have exactly TEAM_SIZE players."""
 
     if len(team.players) != TEAM_SIZE:
         return [f"Team must have exactly {TEAM_SIZE} players, but has {len(team.players)}"]
     return[]
 
-def check_credits(team):
+def check_budget(team):
     """ The total credits of the team must not be exceed MAX_CREDITS."""
 
     total = team.total_credits()
