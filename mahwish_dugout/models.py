@@ -4,7 +4,7 @@ from mahwish_dugout.rules import(
     check_players_count,
     check_budget,
     check_franchise_limit,
-    check_role_limits,
+    check_roles,
     check_captains,
 )
 
@@ -13,11 +13,11 @@ from mahwish_dugout.rules import(
 
 class Player:
     #constructor 
-    def __init__(self, player_id, name, role, franchise, credits):
+    def __init__(self, player_id, name, franchise, role, credits):
         self.player_id = player_id
         self.name = name 
-        self.role = role 
         self.franchise = franchise
+        self.role = role 
         self.credits = credits
 
     @classmethod
@@ -26,8 +26,8 @@ class Player:
         return cls(
             row["player_id"],
             row["name"],
-            row["role"],
             row["franchise"],
+            row["role"],
             float(row["credits"])
         )
 
@@ -45,23 +45,14 @@ class FantacyTeam:
         self.vice_captain = None
 
 #inshide class fantacy team 
-    def check_rules(self):
-        """return a list of rules violation. An empty list means the team is leagal."""
-        errors = []
-        errors.extend(check_players_count(self))
-        errors.extend(check_budget(self))
-        errors.extend(check_franchise_limit(self))
-        errors.extend(check_role_limits(self))
-        errors.extend(check_captains(self))
-        return errors
-
+    
     def add_player(self, player):
         self.players.append(player)
 
     def total_credits(self):
         total = 0 
         for player in self.players:
-            total += player.credits 
+            total = total + player.credits 
         return total
 
     def count_by_role(self):
@@ -79,9 +70,20 @@ class FantacyTeam:
         counts = {}
         for player in self.players:
             #get(key,0)gives 0 the first time we see a franchise
-            counts[player.franchise] = counts.get(player.franchise, 0) +1
+            counts[player.franchise] = counts.get(player.franchise, 0) + 1
             return counts
 
+    def check_rules(self):
+            """return a list of rules violation. An empty list means the team is leagal."""
+            errors = []
+            errors.extend(check_players_count(self))
+            errors.extend(check_budget(self))
+            errors.extend(check_franchise_limit(self))
+            errors.extend(check_roles(self))
+            errors.extend(check_captains(self))
+            return errors
+    
+    
     def __str__(self):
         size = len(self.players)
         cost = self.total_credits()
@@ -112,37 +114,3 @@ class League:
 
         
 
-# babar = Player("P089", "Babar Azam", "Batter", "Peshawer Zalmi", 10.5)
-# usman = Player("P002", "Usman Khan", "Wicket Keeper", "Hyderabad Kingsmen", 10.5 )
-# irfan = Player("P004", "Irfan Khan", "Batter", "Hyderabad Kingsmen", 6.5)
-# imad = Player ("P028", "Imad Wasim", "All Rounder", "Islamabad United", 9.5)
-# shadab = Player("P029", "Shadab Khan", "All Rounder", "Islamabad United", 9.5)
-# gleeson = Player("P032", "R J Gleeson", "Bowler", "Islamabad United", 7.5)
-# amir = Player("P137", "Mohammad Amir", "Bowler", "Rawalpindi", 8.7)
-# nawaz = Player("P106", "Hassan Nawaz", "Batter", "Quetta Gladiator", 9.5)
-# mg = Player("P107", "MG Bracewell", "All Rounder", "Peshawer Zalmi", 8.0)
-# shan= Player("P076", "Shan Masood", "Batter", "Karachi Kings", 6.0)
-# hasnain = Player("P031", "Mohammad Hasnain", "Bowler", "Islamabad United", 6.0)
-
-# team = FantacyTeam("Kings XI", "Mahwish")
-# team.add_player(babar)
-# team.add_player(usman)
-# team.add_player(irfan)
-# team.add_player(imad)
-# team.add_player(shadab)
-# team.add_player(gleeson)
-# team.add_player(amir)
-# team.add_player(nawaz)
-# team.add_player(mg)
-# team.add_player(shan)
-# team.add_player(hasnain)
-
-# team.set_captain(shadab, usman)
-
-# print(team)
-# print(f"Roles  : {team.count_by_role()}")
-# print(f"captain :   {team.captain}")
-# print(f"vice-captain :  {team.vice_captain}")
-
-# for player in team.players:
-#     print(player)

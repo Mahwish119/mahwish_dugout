@@ -1,3 +1,4 @@
+
 TEAM_SIZE = 11
 MAX_CREDITS = 100
 MAX_FROM_ONE_FRANCHISE = 7
@@ -15,7 +16,7 @@ def check_players_count(team):
 
     if len(team.players) != TEAM_SIZE:
         return [f"Team must have exactly {TEAM_SIZE} players, but has {len(team.players)}"]
-    return[]
+    return []
 
 def check_budget(team):
     """ The total credits of the team must not be exceed MAX_CREDITS."""
@@ -36,15 +37,16 @@ def check_franchise_limit(team):
                 )
     return errors
 
-def check_role_limits(team):
+def check_roles(team):
     """Each role must have betweeen its minimum and maximum number of players"""
+
     counts = team.count_by_role()
     errors =[]
-    for role, (low,high) in ROLE_LIMITS.teams():
+    for role, (low,high) in ROLE_LIMITS.items():
         count = counts[role]
         if count < low or count > high:
             errors.append(
-                f"Team has {count} players with role {role},"
+                f"Team has {count} players with role {role}, "
                 f" but must have between {low} and {high}"
             )
     return errors

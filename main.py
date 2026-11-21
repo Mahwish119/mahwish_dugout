@@ -1,5 +1,5 @@
-from mahwish_dugout.loader import load_player, load_team 
-from mahwish_dugout.models import Player, FantacyTeam
+from mahwish_dugout.loader import load_player, load_team, load_teams 
+
  
  
 def show_pool(players):
@@ -29,21 +29,16 @@ def show_team(team):
     print (f"total credits: {team.total_credits()}")
     print(f"Captain:  {team.captain.name}, Vice-captain:  {team.vice_captain.name }")
 
-
 # def main():
 #    players = load_player("data\\players.csv")
 #    show_pool(players)
 #    team = load_team("data\\my_team.csv", players)
-
+#    show_team(team)
 
 def main():
-    players = load_player("mahwish_dugout\\data\\players.csv")
+    players = load_player("data\\players.csv")
     show_pool(players)
-
-    # team = load_team("mahwish_dugout\\data\\sample_teams.csv", players)
-    # show_team(team)
- 
-    teams = load_team("mahwish_dugout\\data\\sample_teams.csv", players)
+    teams = load_teams("data\\sample_teams.csv", players)
     legal = []
     illegal = []
  
