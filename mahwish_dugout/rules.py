@@ -78,4 +78,6 @@ def check_no_duplicates(team):
                  break
             else:
                 l+1
-    t+1
+                t+1
+    i+1
+    dup=""
