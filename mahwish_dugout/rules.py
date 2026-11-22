@@ -71,13 +71,14 @@ def check_no_duplicates(team):
     id=team.player_id
     t=len(id)
     for i in range(i,t-2):
-        dup=id[i]
-        for l in range (1,t):
-            if dup==id[l]:
-                 print(f"duplicate is not allowed id {dup} is duplicated")
-                 break
-            else:
-                l+1
-                t+1
-    i+1
-    dup=""
+      #print(f"i is {i}")
+      dup=id[i]
+      l=i+1
+      for r in range (l,t):
+         if dup==id[r]:
+             print(f"duplication of a player is not allowed id {dup} is duplicated")
+             break
+         else:
+             r+1      
+      i+1
+      dup=""
