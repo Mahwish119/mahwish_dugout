@@ -1,5 +1,5 @@
 # dugout models.py, at the top 
-
+from mahwish_dugout.errors import InvalidTeamError, PlayerNotFoundError
 from mahwish_dugout.rules import(
     check_players_count,
     check_budget,
@@ -8,7 +8,11 @@ from mahwish_dugout.rules import(
     check_captains,
 )
 
-
+def find_player(players, player_id):
+    """return the player with this id or raise PlayerNotFoundError"""
+    if player_id not in players:
+        raise PlayerNotFoundError(player_id)
+    return players[player_id]
 
 
 class Player:
@@ -88,6 +92,13 @@ class FantacyTeam:
         size = len(self.players)
         cost = self.total_credits()
         return f"{self.team_name} (owner:{self.owner},{size} players, {cost} cr)"
+
+    def validate(self):
+        """raise InvalidTeamError if the team vreaks any rule """
+        problems = self.check_rule()
+
+        if problems:
+            raise InvalidTeamError
 
 
 class League:

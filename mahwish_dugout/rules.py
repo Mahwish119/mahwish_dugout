@@ -65,3 +65,17 @@ def check_captains(team):
         errors.append("Captain and vice captain cannot be the same player.")
     return errors
 
+def check_no_duplicates(team):
+    """there must be no duplication of player_id """
+    i=0
+    id[]=team.player_id
+    t=len(id)
+    for i in range(i,t-2):
+        dup=id[i]
+        for l in range (1,t):
+            if dup==id[l]:
+                 print(f"duplicate is not allowed id {dup} is duplicated")
+                 break
+            else:
+                l+1
+    t+1
