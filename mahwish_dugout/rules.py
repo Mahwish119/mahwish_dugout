@@ -68,7 +68,7 @@ def check_captains(team):
 def check_no_duplicates(team):
     """there must be no duplication of player_id """
     i=0
-    id[]=team.player_id
+    id=team.player_id
     t=len(id)
     for i in range(i,t-2):
         dup=id[i]
