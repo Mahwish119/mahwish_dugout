@@ -3,12 +3,12 @@
 import csv
 from mahwish_dugout.models import Player, FantacyTeam
 
-def load_player(path):
+def load_players(path):
      """Return a dict of player id -> Player for every row in the CSV file at path."""
      players = {}
      with open(path, newline="", encoding="utf-8") as f:
-        # DictReader turns each row into a dict keyed by the header names
-      for row in csv.DictReader(f):
+        #DictReader turns each row into a dict keyed by the header names
+        for row in csv.DictReader(f):
           player = Player.from_row(row)
           players[player.player_id] = player
      return players 
@@ -33,10 +33,11 @@ def team_from_row(row, players):
  
 def load_team(path, players):
     """Return the first team in a teams CSV file, or None if the file has no teams."""
- 
+
     with open(path, newline="", encoding="utf-8") as f:
         for row in csv.DictReader(f):
-            return team_from_row(row, players)  # return on the first row only
+           return team_from_row(row, players)#REturn on the first row only 
+    return None
  
 
 
@@ -45,10 +46,16 @@ def load_team(path, players):
 
 
 
-def load_teams(path,players):
+def load_teams(path, players):
      """return a list of every team is a teams CSV file. """
      teams =[]
      with open(path, newline = "", encoding = "utf-8") as f:
          for row in csv.DictReader(f):
              teams.append (team_from_row (row, players))
      return teams
+
+def read_team_rows(path):
+    """Return the raw rows of a teams csv file, without building any team. """
+
+    with open(path, newline="", encoding="utf-8")as f:
+        return list(csv.DictReader(f))

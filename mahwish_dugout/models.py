@@ -1,5 +1,7 @@
 # dugout models.py, at the top 
 from mahwish_dugout.errors import InvalidTeamError, PlayerNotFoundError
+#from mahwish_dugout.loader import load_players
+#from mahwish_dugout.models import 
 from mahwish_dugout.rules import(
     check_players_count,
     check_budget,
@@ -75,7 +77,7 @@ class FantacyTeam:
         for player in self.players:
             #get(key,0)gives 0 the first time we see a franchise
             counts[player.franchise] = counts.get(player.franchise, 0) + 1
-            return counts
+        return counts
 
     def check_rules(self):
             """return a list of rules violation. An empty list means the team is leagal."""
@@ -95,10 +97,12 @@ class FantacyTeam:
 
     def validate(self):
         """raise InvalidTeamError if the team vreaks any rule """
-        problems = self.check_rule()
+        problems = self.check_rules()
 
         if problems:
-            raise InvalidTeamError
+            raise InvalidTeamError(
+                self.team_name, problems)
+            
 
 
 class League:

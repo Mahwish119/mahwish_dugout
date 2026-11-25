@@ -1,3 +1,4 @@
+
 """The errors Dugout raises when something is wrong."""
  
  
@@ -17,6 +18,6 @@ class InvalidTeamError(DugoutError):
     """Raised when a team breaks one or more league rules."""
  
     def __init__(self, team_name, problems):
-        super().__init__(f"{team_name} is not a legal team: " + "; ".join(problems))
+        super().__init__(f"{team_name} is not a legal team: " + ";".join(problems))
         self.team_name = team_name
         self.problems = problems
