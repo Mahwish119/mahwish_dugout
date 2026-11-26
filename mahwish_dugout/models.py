@@ -1,7 +1,6 @@
-# dugout models.py, at the top 
+
 from mahwish_dugout.errors import InvalidTeamError, PlayerNotFoundError
-#from mahwish_dugout.loader import load_players
-#from mahwish_dugout.models import 
+
 from mahwish_dugout.rules import(
     check_players_count,
     check_budget,

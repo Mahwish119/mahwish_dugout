@@ -1,7 +1,7 @@
 """functions that read players and teams from csv file"""
 
 import csv
-from mahwish_dugout.models import Player, FantacyTeam
+from mahwish_dugout.models import Player, FantacyTeam, find_player
 
 def load_players(path):
      """Return a dict of player id -> Player for every row in the CSV file at path."""
@@ -24,9 +24,11 @@ def team_from_row(row, players):
     team = FantacyTeam(row["team_name"], row["owner"])
  
     for player_id in row["players"].split(";"):
-        team.add_player(players[player_id.strip()])
+        team.add_player(find_player(players,player_id.strip()))
     
-    team.set_captain(players[row["captain"]], players[row["vice_captain"]])
+    team.set_captain(
+        find_player(players,row["captain"].strip()),
+         find_player(players,row["vice_captain"].strip()),)
  
     return team
  
@@ -47,12 +49,12 @@ def load_team(path, players):
 
 
 def load_teams(path, players):
-     """return a list of every team is a teams CSV file. """
-     teams =[]
-     with open(path, newline = "", encoding = "utf-8") as f:
-         for row in csv.DictReader(f):
-             teams.append (team_from_row (row, players))
-     return teams
+    """return a list of every team is a teams CSV file. """
+    teams =[]
+    with open(path, newline = "", encoding = "utf-8") as f:
+        for row in csv.DictReader(f):
+            teams.append (team_from_row (row, players))
+    return teams
 
 def read_team_rows(path):
     """Return the raw rows of a teams csv file, without building any team. """

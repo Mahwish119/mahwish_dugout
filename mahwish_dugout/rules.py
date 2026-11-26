@@ -68,8 +68,8 @@ def check_captains(team):
 def check_no_duplicates(team):
     """there must be no duplication of player_id """
     i=0
-    id=[]
-    id=team.player_id
+    id={}
+    id=team.player_id[]
     t=len(id)
     for i in range(i,t-2):
       #print(f"i is {i}")
