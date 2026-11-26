@@ -21,7 +21,7 @@ def deliveries(match):
 
 
 # then, in m1.py
-match = load_match("data\\matches\\match_01.json")
+match = load_match("data\\matches\\match_03.json")
 print(list(match.keys()))
 print(match["info"]["teams"])
 print(len(match["innings"]), "innings")
@@ -76,3 +76,11 @@ def batter_card(match, batter):
             sixes = sixes + 1
  
     return {"runs": runs, "balls": balls, "fours": fours, "sixes": sixes}
+match = load_match(f"data\\matches\\match_04.json")
+print(batter_runs(match, "Fakhar zaman"))
+print(batter_card(match, "Fakhar zaman"))
+print(batter_card(match, "Haseebullah khan"))
+
+for number in range(1,5):
+    match = load_match(f"data/matches/match_{number:02d}.json")
+    print(number, batter_runs(match, "Fakhar Zaman"))
